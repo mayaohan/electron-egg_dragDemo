@@ -1,0 +1,25 @@
+{
+  "demoJsons": [
+    {
+      "label": "菜单1",
+      "value": 1
+    },
+    {
+      "label": "菜单2",
+      "value": 2
+    },
+    {
+      "label": "菜单3",
+      "value": 3
+    }
+  ],
+  "ax": 1222,
+  "axc": 2,
+  "axcd": 1,
+  "friend": [
+    {
+      "a": 1,
+      "b": 2
+    }
+  ]
+}
