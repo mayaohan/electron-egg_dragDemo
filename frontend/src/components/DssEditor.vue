@@ -28,7 +28,7 @@ import { Boot } from '@wangeditor/editor'
 import UploadFile from '@/components/editor/UploadFile'
 
 const callback = ()=>{
-  console.log('来个上传文件包')
+  // console.log('来个上传文件包')
 }
 const menuConf = {
   key: 'menu1', // 定义 menu key ：要保证唯一、不重复（重要）

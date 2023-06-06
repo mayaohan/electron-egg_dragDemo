@@ -92,7 +92,7 @@ function createSortable () {
             if (event.oldIndex !== undefined && event.newIndex !== undefined) {
             const element = dataList.value.splice(event.oldIndex, 1)
             dataList.value.splice(event.newIndex, 0, element[0])
-            console.log(dataList.value)
+                console.log(dataList.value)
             }
         }
     })

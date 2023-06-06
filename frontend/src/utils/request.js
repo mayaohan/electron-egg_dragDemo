@@ -23,24 +23,26 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   (response) => {
-    const { code, msg } = response.data;
-    if (code === "0") {
+    const { status, statusText } = response;
+    // console.log(response)
+    if (status === 200) {
+      // 响应数据为二进制流处理(Excel导出)
+      if (response.data instanceof ArrayBuffer) {
+        return response;
+      }
       return response.data;
     }
-    // 响应数据为二进制流处理(Excel导出)
-    if (response.data instanceof ArrayBuffer) {
-      return response;
-    }
+    
 
-    // ElMessage.error(msg || '系统出错');
-    return Promise.reject(new Error(msg || "Error"));
+    // ElMessage.error(statusText || '系统出错');
+    return Promise.reject(new Error(statusText || "Error"));
   },
   (error) => {
     if (error.response) {
       // console.log(error)
-      const { code, msg } = error.response.data;
+      const { status, statusText } = error.response;
       // token 过期,重新登录
-      if (code === "A0230") {
+      if (status === 403) {
         ElMessageBox.confirm("当前页面已失效，请重新登录", "提示", {
           confirmButtonText: "确定",
           type: "warning",
@@ -49,7 +51,7 @@ service.interceptors.response.use(
           window.location.href = "/";
         });
       } else {
-        ElMessage.error(msg || "系统出错");
+        ElMessage.error(statusText || "系统出错");
       }
     }
     return Promise.reject(error.message);

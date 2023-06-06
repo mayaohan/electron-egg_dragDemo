@@ -5,11 +5,11 @@ const path = require('path');
 const fs = require('fs');
 const { exec } = require('child_process');
 const { Controller } = require('ee-core');
-const {
-  app: electronApp,
-  dialog, shell, BrowserView, Notification, 
-  powerMonitor, screen, nativeTheme
-} = require('electron');
+// const {
+//   app: electronApp,
+//   dialog, shell, BrowserView, Notification, 
+//   powerMonitor, screen, nativeTheme
+// } = require('electron');
 const dayjs = require('dayjs');
 const Ps = require('ee-core/ps');
 const Log = require('ee-core/log');
@@ -20,7 +20,7 @@ class EditorController extends Controller {
     }
   
     /**
-   * 检测http服务是否开启
+   * 编辑器选择文件注入
    */ 
   async setHTML () {
     const filePaths = dialog.showOpenDialogSync({
@@ -42,7 +42,7 @@ class EditorController extends Controller {
     if (_.isEmpty(filePaths)) {
       return null
     }
-    console.log(filePaths)
+    // console.log(filePaths)
     let res = null
     return new Promise((resolve,reject)=>{
       fs.readFile(filePaths[0], 
@@ -55,6 +55,25 @@ class EditorController extends Controller {
             resolve(res)
         });
     })
+  }
+
+  /**
+   * 关闭主窗口
+   */ 
+  closeWindow(param){
+    const Electron = require('ee-core/electron');
+    const mainWindow = Electron.mainWindow;
+    // console.log(mainWindow)
+    if(param.close==2){
+      mainWindow.destroy();
+    }else{
+      const extraObj = Electron.extra;
+      if (extraObj.closeWindow == true) {
+        return;
+      }
+      mainWindow.hide();
+    }
+    return 1
   }
 }
 

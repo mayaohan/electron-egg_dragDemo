@@ -218,6 +218,10 @@ class ExampleController extends Controller {
     this.app.electron.mainWindow.removeBrowserView(browserViewObj);
     return true
   }  
+  // 弹窗
+  showNotification (NOTIFICATION_TITLE = 'Basic Notification',NOTIFICATION_BODY = 'Notification from the Main process') {
+    new Notification({ title: NOTIFICATION_TITLE, body: NOTIFICATION_BODY }).show()
+  }
 
   /**
    * 打开新窗口
@@ -233,9 +237,11 @@ class ExampleController extends Controller {
       if (this.config.env == 'prod') {
         const mainServer = this.app.config.mainServer;
         addr = mainServer.protocol + mainServer.host + ':' + mainServer.port;
+        // console.log(addr)
       }
 
       content = addr + args.content;
+      // console.log(content)
     } else {
       // some
     }
@@ -247,7 +253,8 @@ class ExampleController extends Controller {
     const name = args.windowName || 'window-1';
     const win = addonWindow.create(name, opt);
     const winContentsId = win.webContents.id;
-    console.log(content)
+    this.showNotification('新窗口路径：',content)
+    // console.log(content)
     // load page
     win.loadURL(content);
 

@@ -1,49 +1,77 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-import { useRouter,useRoute } from 'vue-router'
-import {reactive, toRefs,getCurrentInstance,onMounted,h,ref} from 'vue'
-const { proxy } = getCurrentInstance()
-const router = useRouter()
-const route = useRoute()
-const routeArr = router.getRoutes();
-console.log(router.getRoutes(),route,proxy.$props)
-const toTher = (param)=>{
-  router.push(param)
-}
-const activeIndex = ref('/home')
+  import { RouterLink, RouterView } from 'vue-router'
+  import { h,onMounted,getCurrentInstance,ref,reactive} from 'vue'
+  import { ElMessage } from 'element-plus'
+  import { ipcApiRoute } from '@/api/main'
+  const { proxy } = getCurrentInstance()
+  const { $t } = getCurrentInstance().proxy;
+  const { $ipc } = proxy
+  const centerDialogVisible = ref(false)
+  const form = reactive({
+    resource: '',
+  })
+  const checked1 = ref(false)
+  const forms = ref(null)
+  onMounted(()=>{
+    $ipc.removeAllListeners('handelClose');
+      $ipc.on('handelClose', (event, result) => {
+        // console.log(result)
+        centerDialogVisible.value = true
+      })
+  })
+  const closeToWindow = ()=>{
+    forms.value.validate((valid) => {
+      if (valid) {
+        // console.log(form.resource)
+      } else {
+        // console.log('error submit!')
+        return false
+      }
+    })
+    const param = {
+      close:form.resource==1?1:2,
+      remember:checked1.value?1:2
+    }
+    centerDialogVisible.value = false
+    $ipc.invoke(ipcApiRoute.closeWindow,param)
+  }
 </script>
 
 <template>
 
   <div class="wrapper">
-
-    <!-- <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-      <RouterLink to="/createwindow">createwindow</RouterLink>
-      <RouterLink to="/aweDnd">aweDnd</RouterLink>
-      <RouterLink to="/Grid">Grid</RouterLink>
-    </nav> -->
-    <el-container>
-      <el-menu mode="horizontal" style="width:100%" :default-active="activeIndex">
-        <el-menu-item @click="toTher(obj.path)" v-for="(obj,idx) in routeArr" :index="obj.path">{{obj.name}}</el-menu-item>
-      </el-menu>
-    </el-container>
-    
-    <el-container class="layout-container-demo" style="height:calc(100vh - 80px)">
-      <!-- <el-aside width="0px">
-        <el-scrollbar>
-          
-        </el-scrollbar>
-      </el-aside> -->
-
+     <el-container class="layout-container-demo" style="height:calc(100vh - 80px)">
       <el-main>
           <!-- <el-scrollbar> -->
           <RouterView />
           <!-- </el-scrollbar> -->
       </el-main>
     </el-container>
+    <el-dialog
+      v-model="centerDialogVisible"
+      title="请选择"
+      width="30%"
+      align-center
+    >
+      <el-form :model="form" ref="forms">
+        
+        <el-form-item label="关闭时">
+          <el-radio-group v-model="form.resource">
+            <el-radio :label="1">最小化到托盘</el-radio>
+            <el-radio :label="2">退出程序</el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-checkbox style="float:left" v-model="checked1" disabled>记住选择，下次不在提示</el-checkbox>
+          <el-button @click="centerDialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="closeToWindow">
+            确定
+          </el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 
   

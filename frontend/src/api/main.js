@@ -40,7 +40,8 @@ const ipcApiRoute = {
   createPoolNotice: 'controller.example.createPoolNotice',
   someJobByPool: 'controller.example.someJobByPool',
   hello: 'controller.example.hello',
-  setHTML:'controller.editor.setHTML'
+  setHTML:'controller.editor.setHTML',
+  closeWindow:'controller.editor.closeWindow'
 }
 
 /**

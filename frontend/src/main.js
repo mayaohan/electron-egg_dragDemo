@@ -12,6 +12,7 @@ import { ipc } from '@/utils/ipcRenderer'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import './permission'
+import i18n from './lang'
 const app = createApp(App)
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -28,5 +29,6 @@ app.use(VueAwesomeSwiper)
 app.use(ElementPlus, { size: 'small', zIndex: 3000 })
 app.use(createPinia())
 app.use(router)
+app.use(i18n)
 
 app.mount('#app')

@@ -14,16 +14,18 @@
     Search,
     Star,
   } from '@element-plus/icons-vue'
-  import {reactive, toRefs,getCurrentInstance,onMounted,h} from 'vue'
+  import {reactive, toRefs,getCurrentInstance,onMounted,h,ref} from 'vue'
   import { ElMessage } from 'element-plus'
   import BusinessModule from '@/components/BusinessModule.vue'
   import { loginApi, getUserInfoApi } from '@/api'
   const { proxy } = getCurrentInstance()
+  const { $t } = getCurrentInstance().proxy;
   const { $ipc } = proxy
+  console.log($t(("route.dashboard")))
   const views = [
     {
       type: 'vue',
-      content: '/createwindow',
+      content: '/#/createwindow',
       windowName: 'window-1',
       windowTitle: 'new window'
     },    
@@ -34,10 +36,12 @@
     {label:'菜单2',value:2},
     {label:'菜单3',value:3},
   ]
+  const apis = ref(null)
   // 模拟登陆
   const login = ()=> {
     loginApi({ username: "lzp", password: "666" }).then((res) => {
-      console.log(res);
+      // console.log(res);
+      apis.value = res
     });
   }
   // 表单提交
@@ -69,9 +73,11 @@
     });
   }
   onMounted(e=>{
+    // login()
     // 监听系统通知
       $ipc.removeAllListeners(ipcApiRoute.sendNotification);
       $ipc.on(ipcApiRoute.sendNotification, (event, result) => {
+        // console.log(result)
         if (Object.prototype.toString.call(result) == '[object Object]') {
           ElMessage({
             message: h('p', null, [
@@ -84,7 +90,7 @@
     // 监听新窗口消息
     $ipc.removeAllListeners(specialIpcRoute.window1ToWindow2);
     $ipc.on(specialIpcRoute.window1ToWindow2, (event, arg) => {
-      console.log(arg)
+      // console.log(arg)
       ElMessage({
           message: h('p', null, [
           // h('span', null, arg),
@@ -113,19 +119,15 @@
   const system = ()=>{
     
   }
+  const shift = ()=> { 
+    console.log('分享')
+    $ipc.invoke(ipcApiRoute.openSoftware, 'dll/myDllDemo.dll').then(id => {
+      console.log('[分享] id:', id);
+    })
+  }
 </script>
 
 <template>
-  <WelcomeItem>
-    <template #icon>
-      <DocumentationIcon />
-    </template>
-    <template #heading>Documentation</template>
-
-    Vue’s
-    <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
-    provides you with all information you need to get started.
-  </WelcomeItem>
   <!--el-form 父组件-->
   <el-form
     ref="ruleForm"
@@ -148,4 +150,6 @@
   <!-- <el-button type="primary" @click="system('del')">删除数据</el-button> -->
   <el-button type="primary" @click="login">登录</el-button>
   <el-button type="primary" @click="sendNotification">系统通知</el-button>
+  <el-button type="primary" @click="shift">分享</el-button>
+  {{apis}}
 </template>

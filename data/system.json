@@ -3,22 +3,22 @@
     "config": {
       "env": "local",
       "name": "ee",
-      "baseDir": "/Applications/development/大商所前端项目/electron-pc/electron",
-      "HOME": "/Applications/development/大商所前端项目/electron-pc",
-      "rundir": "/Applications/development/大商所前端项目/electron-pc/electron/run",
+      "baseDir": "/Applications/development/github/electron-egg_dragDemo/electron",
+      "HOME": "/Applications/development/github/electron-egg_dragDemo",
+      "rundir": "/Applications/development/github/electron-egg_dragDemo/electron/run",
       "dump": {
         "ignore": {}
       },
-      "homeDir": "/Applications/development/大商所前端项目/electron-pc",
-      "root": "/Applications/development/大商所前端项目/electron-pc",
+      "homeDir": "/Applications/development/github/electron-egg_dragDemo",
+      "root": "/Applications/development/github/electron-egg_dragDemo",
       "appUserDataDir": "/Users/yanchangkun/Library/Application Support/ee",
       "userHome": "/Users/yanchangkun",
       "appVersion": "3.1.0",
       "isPackaged": false,
-      "execDir": "/Applications/development/大商所前端项目/electron-pc",
+      "execDir": "/Applications/development/github/electron-egg_dragDemo",
       "logger": {
         "type": "application",
-        "dir": "/Applications/development/大商所前端项目/electron-pc/logs",
+        "dir": "/Applications/development/github/electron-egg_dragDemo/logs",
         "encoding": "utf8",
         "env": "local",
         "level": "INFO",
@@ -26,10 +26,10 @@
         "disableConsoleAfterReady": false,
         "outputJSON": false,
         "buffer": true,
-        "appLogName": "ee-2023-05-26.log",
+        "appLogName": "ee-2023-06-05.log",
         "coreLogName": "ee-core.log",
         "agentLogName": "ee-agent.log",
-        "errorLogName": "ee-error-2023-05-26.log",
+        "errorLogName": "ee-error-2023-06-05.log",
         "coreLogger": {},
         "allowDebugAtProd": false,
         "enablePerformanceTimer": false
@@ -112,7 +112,7 @@
         "enable": false
       },
       "storage": {
-        "dir": "/Applications/development/大商所前端项目/electron-pc/data"
+        "dir": "/Applications/development/github/electron-egg_dragDemo/data"
       },
       "loadingPage": false,
       "addons": {
@@ -179,8 +179,8 @@
       "openDevTools": true,
       "windowsOption": {
         "title": "EE框架",
-        "width": 980,
-        "height": 650,
+        "width": 1600,
+        "height": 850,
         "minWidth": 800,
         "minHeight": 650,
         "webPreferences": {
@@ -189,7 +189,7 @@
         },
         "frame": true,
         "show": false,
-        "icon": "/Applications/development/大商所前端项目/electron-pc/public/images/logo-32.png"
+        "icon": "/Applications/development/github/electron-egg_dragDemo/public/images/logo-32.png"
       },
       "remoteUrl": {
         "enable": false,

@@ -39,7 +39,7 @@ class Main extends Application {
       const win = this.electron.mainWindow;
       win.once('ready-to-show', () => {
         win.show();
-        this.showNotification('标题','正文')
+        this.showNotification('标题',win)
         // win.webContents.openDevTools();
       })
     }
@@ -50,9 +50,13 @@ class Main extends Application {
    */  
   async beforeClose () {
     // do some things
-
+    
   }
 }
 
 // Instantiate an app object
 EE.app = new Main();
+app.on('window-all-closed', () => {
+  // Log.info('[addon:tray] will be closed All system');
+  app.quit()
+})

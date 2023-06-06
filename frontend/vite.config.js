@@ -18,7 +18,7 @@ export default defineConfig({
     proxy: {
       // '/api': 'https://some-domain.com/api/',
       "/api": {
-        target: "https://www.baidu.com/api/",
+        target: "http://localhost:8099/",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

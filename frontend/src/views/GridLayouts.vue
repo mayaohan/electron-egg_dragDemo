@@ -3,8 +3,9 @@
         <el-container>
             <el-row :gutter="10">
                 <TransitionGroup name="sort">
-                    <el-col :span="6" class="app-item" v-for="(app,idx) in customApps" :draggable="true"
+                    <el-col :span="6" class="app-item" v-for="(app,idx) in customApps"
                         :key="app.id"
+                        :draggable="true"
                         @dragstart="dragstart(app)"
                         @dragenter.prevent="dragenter(app,$event,customApps)"
                         @dragend="getDragend(customApps, 'customer', $event)"

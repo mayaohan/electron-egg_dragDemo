@@ -78,7 +78,7 @@ class ExampleService extends Service {
     });
   }
 
-  /**
+  /** 
    * 通过进程池执行任务
    */ 
   doJobByPool(jobId, action, event) {
